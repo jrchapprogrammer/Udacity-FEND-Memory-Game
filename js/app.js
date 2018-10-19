@@ -1,10 +1,11 @@
 /*
- * Create a list that holds all of your cards
- */
+* Create a list that holds all of your cards
+*/
 const cardList = document.querySelectorAll('.card');
-
+const cardListArray = [];
+let deckLoader = document.createDocumentFragment;
 /*
- * Display the cards on the page
+* Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
@@ -26,18 +27,24 @@ function shuffle(array) {
 
   return array;
 }
+let cleaned = cardList => {
+  for (let card of cardList) {
+    card.setAttribute('class', 'card');
+    cardListArray.push(card);
+  }
+};
 
 let shuffled = () => {
-  const cleaned = cardList.forEach(c => c.setAttribute('class', 'card'));
-  shuffle(cleaned);
+  shuffle(cardListArray);
 };
-const cardLoader = shuffled => {
-  const deckLoader = document.createDocumentFragment;
-  const cardLoop = () => {
-    for (let card of shuffled) {
-    }
-  };
+const cardLoader = (nodeList, deck) => {
+  cleaned(nodeList);
+
+  deckLoader.appendChild(deck);
 };
+cardLoader(cardList, cardListArray);
+cardList.appendChild(deckLoader);
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
