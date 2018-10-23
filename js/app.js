@@ -81,17 +81,19 @@ for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
     revealedCards.push(item);
-    if (!item.classList.contains('open')) {
-      movesTrack(item);
-    }
+    // if (!item.classList.contains('open')) {
+    movesTrack(item);
+    // }
     console.log(movesCounter);
 
-    let revCardType1 = revealedCards[0].firstElementChild.classList.item(0);
-    let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
     if (revealedCards.length == 2) {
+      let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
+      let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
       if (revCardType1 == revCardType2) {
-        matchCard(revealedCard[0]);
-        matchCard(revealCard[1]);
+        console.log('it is a match');
+        matchCard(revealedCards[0]);
+        matchCard(revealedCards[1]);
+        console.log(`${revCardType1} ${revCardType2} ${revealedCards}`);
         revealedCards = [];
       }
       setTimeout(() => {
