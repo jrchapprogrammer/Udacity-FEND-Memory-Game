@@ -59,9 +59,11 @@ document.querySelector('.deck').appendChild(deckLoader);
  */
 const deckList = document.querySelectorAll('.card');
 let revealedCards = [];
-let movesCounter = [];
+let movesCounter = 0;
 
-const movesTrack = card => {};
+// const movesTrack = card => {
+//   movesCounter++;
+// };
 
 const displayCard = card => {
   card.classList.add('show', 'open');
@@ -78,5 +80,19 @@ const matchCard = card => {
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
+    revealedCards.push();
   });
+}
+if (revealedCards.length === 2) {
+  if (revealedCards[0].value === revealedCards[1].value) {
+    for (let card of revealedCards) {
+      matchCard(card);
+    }
+  }
+  setTimeout(() => {
+    for (let card of revealedCards) {
+      hideCard(card);
+    }
+    revealedCards = [];
+  }, 850);
 }
