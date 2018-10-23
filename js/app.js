@@ -41,11 +41,8 @@ const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
 cleaned(cardList);
-console.log(cardListArray);
 shuffle(cardListArray);
-console.log(cardListArray);
 cardLoader(cardListArray);
-console.log(deckLoader);
 document.querySelector('.deck').appendChild(deckLoader);
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -82,7 +79,7 @@ const matchCard = card => {
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
-    revealedCards.push();
+    revealedCards.push(item);
     movesTrack();
   });
 }
