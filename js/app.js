@@ -90,10 +90,8 @@ for (let item of deckList) {
       let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
       let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
       if (revCardType1 == revCardType2) {
-        console.log('it is a match');
         matchCard(revealedCards[0]);
         matchCard(revealedCards[1]);
-        console.log(`${revCardType1} ${revCardType2} ${revealedCards}`);
         revealedCards = [];
       }
       setTimeout(() => {
