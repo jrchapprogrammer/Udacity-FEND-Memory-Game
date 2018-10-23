@@ -58,10 +58,25 @@ document.querySelector('.deck').appendChild(deckLoader);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const deckList = document.querySelectorAll('.card');
+let revealedCards = [];
+let movesCounter = [];
+
+const movesTrack = card => {};
+
+const displayCard = card => {
+  card.classList.add('show', 'open');
+};
+
+const hideCard = card => {
+  card.classList.remove('show', 'open');
+};
+
+const matchCard = card => {
+  card.classList.add('match');
+};
 
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
-    item.classList.toggle('show');
-    item.classList.toggle('open');
+    displayCard(item);
   });
 }
