@@ -43,7 +43,7 @@ const cardLoader = deck => {
 cleaned(cardList);
 console.log(cardListArray);
 shuffle(cardListArray);
-console.log(cardlistArray);
+console.log(cardListArray);
 cardLoader(cardListArray);
 console.log(deckLoader);
 document.querySelector('.deck').appendChild(deckLoader);
