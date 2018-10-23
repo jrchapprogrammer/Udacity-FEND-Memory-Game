@@ -87,7 +87,7 @@ for (let item of deckList) {
     console.log(movesCounter);
 
     let revCardType1 = revealedCards[0].firstElementChild.classList.item(0);
-    let revCardType2 = revealedCards[1].firstElementChild.classList(1);
+    let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
     if (revealedCards.length == 2) {
       if (revCardType1 == revCardType2) {
         matchCard(revealedCard[0]);
