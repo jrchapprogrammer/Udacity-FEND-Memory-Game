@@ -1,8 +1,8 @@
 /*
 * Create a list that holds all of your cards
 */
-const cardList = document.querySelectorAll('.card');
-const cardListArray = [];
+let cardList = document.querySelectorAll('.card');
+let cardListArray = [];
 let deckLoader = document.createDocumentFragment();
 /*
 * Display the cards on the page
@@ -37,14 +37,14 @@ let cleaned = cardList => {
 let shuffled = () => {
   shuffle(cardListArray);
 };
-const cardLoader = (nodeList, deck) => {
-  cleaned(nodeList);
-
-  deckLoader.appendChild(deck);
+const cardLoader = deck => {
+  deck.forEach(item => deckLoader.appendChild(item));
 };
-cardLoader(cardList, cardListArray);
-cardList.appendChild(deckLoader);
-
+cleaned(cardList);
+console.log(deckLoader);
+cardLoader(cardListArray);
+console.log(deckLoader);
+document.querySelector('.deck').appendChild(deckLoader);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -57,8 +57,8 @@ cardList.appendChild(deckLoader);
  */
 const deckList = document.querySelectorAll('.card');
 
-for (let item in deckList) {
-  item.addEventListener('click', function() {
+for (let item of deckList) {
+  item.addEventListener('click', function(e) {
     item.classList.toggle('show');
     item.classList.toggle('open');
   });
