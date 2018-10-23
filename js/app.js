@@ -60,8 +60,9 @@ let movesCounter = 0;
 let moves = document.querySelector('.moves');
 moves.innerText = movesCounter;
 
-const movesTrack = () => {
+const movesTrack = card => {
   movesCounter++;
+  moves.innerText = movesCounter;
 };
 
 const displayCard = card => {
@@ -80,19 +81,25 @@ for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
     revealedCards.push(item);
-    movesTrack();
+    if (!item.classList.contains('open')) {
+      movesTrack(item);
+    }
+    console.log(movesCounter);
+
+    let revCardType1 = revealedCards[0].firstElementChild.classList.item(0);
+    let revCardType2 = revealedCards[1].firstElementChild.classList(1);
+    if (revealedCards.length == 2) {
+      if (revCardType1 == revCardType2) {
+        matchCard(revealedCard[0]);
+        matchCard(revealCard[1]);
+        revealedCards = [];
+      }
+      setTimeout(() => {
+        for (let card of revealedCards) {
+          hideCard(card);
+        }
+        revealedCards = [];
+      }, 850);
+    }
   });
-}
-if (revealedCards.length === 2) {
-  if (revealedCards[0].value === revealedCards[1].value) {
-    for (let card of revealedCards) {
-      matchCard(card);
-    }
-  }
-  setTimeout(() => {
-    for (let card of revealedCards) {
-      hideCard(card);
-    }
-    revealedCards = [];
-  }, 850);
 }
