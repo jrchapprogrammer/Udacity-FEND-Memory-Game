@@ -34,14 +34,16 @@ let cleaned = cardList => {
   }
 };
 
-let shuffled = () => {
-  shuffle(cardListArray);
+let shuffled = list => {
+  shuffle(list);
 };
 const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
 cleaned(cardList);
-console.log(deckLoader);
+console.log(cardListArray);
+shuffle(cardListArray);
+console.log(cardlistArray);
 cardLoader(cardListArray);
 console.log(deckLoader);
 document.querySelector('.deck').appendChild(deckLoader);
