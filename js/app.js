@@ -60,10 +60,12 @@ document.querySelector('.deck').appendChild(deckLoader);
 const deckList = document.querySelectorAll('.card');
 let revealedCards = [];
 let movesCounter = 0;
+let moves = document.querySelector('.moves');
+moves.innerText = movesCounter;
 
-// const movesTrack = card => {
-//   movesCounter++;
-// };
+const movesTrack = () => {
+  movesCounter++;
+};
 
 const displayCard = card => {
   card.classList.add('show', 'open');
@@ -81,6 +83,7 @@ for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
     revealedCards.push();
+    movesTrack();
   });
 }
 if (revealedCards.length === 2) {
