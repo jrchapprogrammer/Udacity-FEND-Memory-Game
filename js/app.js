@@ -96,6 +96,23 @@ const restart = () => {
   startGame();
 };
 
+let board = document.querySelector('.container');
+let page = document.querySelector('body');
+
+const congrats = () => {
+  let congratsContainer = document
+    .createElement('div')
+    .classList.toggle('congrats');
+  let stars = document.querySelector('.stars').length;
+  congratsContainer.innerHTML = `<h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${stars}.</p><br><button>Play Again?</button>`;
+  board.classList.toggle('hide');
+  page.appendChild(congratsContainer);
+};
+
+const winGame = () => {
+  congrats();
+};
+
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
@@ -110,7 +127,7 @@ for (let item of deckList) {
     } else {
       movesTrack(item);
     }
-    console.log(movesCounter);
+    // console.log(movesCounter);
 
     if (revealedCards.length == 2) {
       let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
@@ -127,6 +144,10 @@ for (let item of deckList) {
         }
         revealedCards = [];
       }, 850);
+    }
+
+    if (matchedCards.length == 8) {
+      winGame();
     }
   });
 }
