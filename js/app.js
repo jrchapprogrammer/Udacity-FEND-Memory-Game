@@ -98,13 +98,14 @@ const restart = () => {
 
 let board = document.querySelector('.container');
 let page = document.querySelector('body');
+let stars = document.querySelector('.stars');
 
 const congrats = () => {
-  let congratsContainer = document
-    .createElement('div')
-    .classList.toggle('congrats');
-  let stars = document.querySelector('.stars').length;
-  congratsContainer.innerHTML = `<h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${stars}.</p><br><button>Play Again?</button>`;
+  let congratsContainer = document.createElement('DIV');
+  congratsContainer.classList.toggle('congrats');
+  congratsContainer.innerHTML = `<h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${
+    stars.childElementCount
+  } stars.</p><br><button>Play Again?</button>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
