@@ -83,17 +83,17 @@ const matchCard = card => {
   card.classList.add('match');
 };
 
-// const clearBoard = () => {
-//   cardListArray = [];
-//   revealedCards = [];
-//   movesCounter = 0;
-//   matchedCards = [];
-// };
+const clearBoard = () => {
+  cardListArray = [];
+  revealedCards = [];
+  movesCounter = 0;
+  matchedCards = [];
+};
 
-// const restart = () => {
-//   clearBoard();
-//   startGame();
-// };
+const restart = () => {
+  clearBoard();
+  startGame();
+};
 
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
@@ -130,9 +130,9 @@ for (let item of deckList) {
   });
 }
 
-// const restartGame = () => {
-//   let restartButton = document.querySelector('.restart');
-//   restartButton.addEventListener('click', e => {
-//     restart();
-//   });
-// };
+const restartGame = () => {
+  let restartButton = document.querySelector('.restart');
+  restartButton.addEventListener('click', function(e) {
+    restart();
+  });
+};
