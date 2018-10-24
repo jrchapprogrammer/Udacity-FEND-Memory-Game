@@ -87,6 +87,7 @@ const clearBoard = () => {
   cardListArray = [];
   revealedCards = [];
   movesCounter = 0;
+  moves.innerText = movesCounter;
   matchedCards = [];
 };
 
@@ -130,9 +131,7 @@ for (let item of deckList) {
   });
 }
 
-const restartGame = () => {
-  let restartButton = document.querySelector('.restart');
-  restartButton.addEventListener('click', function(e) {
-    restart();
-  });
-};
+let restartButton = document.querySelector('.restart');
+restartButton.addEventListener('click', function(e) {
+  restart();
+});
