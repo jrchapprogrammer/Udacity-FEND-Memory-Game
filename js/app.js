@@ -41,14 +41,14 @@ let shuffled = list => {
 const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
-// const startGame = () => {
-cleaned(cardList);
-shuffle(cardListArray);
-cardLoader(cardListArray);
-document.querySelector('.deck').appendChild(deckLoader);
-// };
+const startGame = () => {
+  cleaned(cardList);
+  shuffle(cardListArray);
+  cardLoader(cardListArray);
+  document.querySelector('.deck').appendChild(deckLoader);
+};
 
-// startGame();
+startGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
