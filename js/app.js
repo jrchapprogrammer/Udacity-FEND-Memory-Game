@@ -27,6 +27,7 @@ function shuffle(array) {
 
   return array;
 }
+
 let cleaned = cardList => {
   for (let card of cardList) {
     card.setAttribute('class', 'card');
@@ -40,10 +41,14 @@ let shuffled = list => {
 const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
+// const startGame = () => {
 cleaned(cardList);
 shuffle(cardListArray);
 cardLoader(cardListArray);
 document.querySelector('.deck').appendChild(deckLoader);
+// };
+
+// startGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -56,6 +61,7 @@ document.querySelector('.deck').appendChild(deckLoader);
  */
 const deckList = document.querySelectorAll('.card');
 let revealedCards = [];
+// TODO: let matchedCards = [];
 let movesCounter = 0;
 let moves = document.querySelector('.moves');
 moves.innerText = movesCounter;
@@ -77,13 +83,32 @@ const matchCard = card => {
   card.classList.add('match');
 };
 
+// const clearBoard = () => {
+//   cardListArray = [];
+//   revealedCards = [];
+//   movesCounter = 0;
+//   matchedCards = [];
+// };
+
+// const restart = () => {
+//   clearBoard();
+//   startGame();
+// };
+
 for (let item of deckList) {
   item.addEventListener('click', function(e) {
     displayCard(item);
     revealedCards.push(item);
-    // if (!item.classList.contains('open')) {
-    movesTrack(item);
-    // }
+    if (
+      item.hasAttribute('open') ||
+      item.hasAttribute('show') ||
+      item.hasAttribute('match')
+    ) {
+      return;
+      // } else if (item.hasAttribute('open') && item.hasAttribute('show')) {
+    } else {
+      movesTrack(item);
+    }
     console.log(movesCounter);
 
     if (revealedCards.length == 2) {
@@ -92,6 +117,7 @@ for (let item of deckList) {
       if (revCardType1 == revCardType2) {
         matchCard(revealedCards[0]);
         matchCard(revealedCards[1]);
+        // TODO: matchedCards.push(revealedCards);
         revealedCards = [];
       }
       setTimeout(() => {
@@ -103,3 +129,10 @@ for (let item of deckList) {
     }
   });
 }
+
+// const restartGame = () => {
+//   let restartButton = document.querySelector('.restart');
+//   restartButton.addEventListener('click', e => {
+//     restart();
+//   });
+// };
