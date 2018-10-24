@@ -115,6 +115,7 @@ const winGame = () => {
   let congratsButton = document.querySelector('.congrats button');
   congratsButton.addEventListener('click', function(e) {
     document.querySelector('.congrats').classList.toggle('hide');
+    document.querySelector('.congrats').classList.toggle('congrats');
     board.classList.toggle('hide');
     restart();
   });
