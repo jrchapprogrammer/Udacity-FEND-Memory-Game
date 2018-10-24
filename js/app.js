@@ -103,16 +103,16 @@ let stars = document.querySelector('.stars');
 const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
-  congratsContainer.innerHTML = `<h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${
     stars.childElementCount
-  } stars.</p><br><button>Play Again?</button>`;
+  } stars.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
 
 const winGame = () => {
   congrats();
-  let congratsButton = document.querySelector('.congrats button');
+  let congratsButton = document.querySelector('.congratsModal button');
   congratsButton.addEventListener('click', function(e) {
     document.querySelector('.congrats').classList.toggle('hide');
     document.querySelector('.congrats').classList.toggle('congrats');
@@ -156,6 +156,14 @@ for (let item of deckList) {
 
     if (matchedCards.length == 8) {
       winGame();
+    }
+
+    if (movesCounter >= 36 && movesCounter <= 49) {
+      stars.firstChild.classList.toggle('hide');
+    } else if (movesCounter >= 50) {
+      stars.firstChild.classList.toggle('hide');
+    } else {
+      return;
     }
   });
 }
