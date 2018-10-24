@@ -61,7 +61,7 @@ startGame();
  */
 const deckList = document.querySelectorAll('.card');
 let revealedCards = [];
-// TODO: let matchedCards = [];
+let matchedCards = [];
 let movesCounter = 0;
 let moves = document.querySelector('.moves');
 moves.innerText = movesCounter;
@@ -117,7 +117,7 @@ for (let item of deckList) {
       if (revCardType1 == revCardType2) {
         matchCard(revealedCards[0]);
         matchCard(revealedCards[1]);
-        // TODO: matchedCards.push(revealedCards);
+        matchedCards.push(revealedCards);
         revealedCards = [];
       }
       setTimeout(() => {
