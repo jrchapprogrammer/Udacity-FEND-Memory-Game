@@ -96,13 +96,23 @@ const restart = () => {
 let board = document.querySelector('.container');
 let page = document.querySelector('body');
 let stars = document.querySelector('.stars');
+let starsCount = 0;
+
+const starsCountDisplay = () => {
+  if (movesCounter >= 11) {
+    starsCount = 1;
+  } else if (movesCounter <= 5 && movesCounter >= 10) {
+    starsCount = 2;
+  } else {
+    starsCount = stars.childElementCount;
+  }
+};
 
 const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
-  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with ${
-    stars.childElementCount
-  } stars.</p><br><button id="congratsButton">Play Again?</button></div>`;
+  starsCountDisplay();
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
@@ -132,7 +142,6 @@ for (let item of deckList) {
     } else {
       movesTrack(item);
     }
-    // console.log(movesCounter);
 
     if (revealedCards.length == 2) {
       let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
@@ -155,10 +164,10 @@ for (let item of deckList) {
       winGame();
     }
 
-    if (movesCounter >= 36 && movesCounter <= 49) {
-      stars.firstChild.classList.add('hide');
-    } else if (movesCounter >= 50) {
-      stars.firstChild.classList.add('hide');
+    if (movesCounter >= 5 && movesCounter <= 10) {
+      stars.firstElementChild.style = 'display: none';
+    } else if (movesCounter >= 11) {
+      stars.lastElementChild.style = 'display: none';
     } else {
       return;
     }
