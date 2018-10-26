@@ -35,9 +35,6 @@ let cleaned = cardList => {
   }
 };
 
-let shuffled = list => {
-  shuffle(list);
-};
 const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
@@ -159,9 +156,9 @@ for (let item of deckList) {
     }
 
     if (movesCounter >= 36 && movesCounter <= 49) {
-      stars.firstChild.classList.toggle('hide');
+      stars.firstChild.classList.add('hide');
     } else if (movesCounter >= 50) {
-      stars.firstChild.classList.toggle('hide');
+      stars.firstChild.classList.add('hide');
     } else {
       return;
     }
