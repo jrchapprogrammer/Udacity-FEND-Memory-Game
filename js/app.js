@@ -94,6 +94,8 @@ const clearBoard = () => {
   movesCounter = 0;
   moves.innerText = movesCounter;
   matchedCards = [];
+  stars.firstElementChild.style = 'display: inline-block';
+  stars.lastElementChild.style = 'display: inline-block';
 };
 
 const restart = () => {
@@ -151,7 +153,7 @@ deck.addEventListener(
       displayCard(clickedCard);
 
       console.log(`clicked: `, clickedCard);
-      if (!clickedCard.dataset.cardView === 'open') return;
+      // if (!clickedCard.dataset.cardView === 'open') return;
 
       revealedCards.push(clickedCard);
       console.log(`revealed: `, revealedCards);
@@ -160,8 +162,12 @@ deck.addEventListener(
       if (revealedCards.length == 2) {
         let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
         let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
-        if (revCardType1 == revCardType2) {
-          matchCard(...revealedCards);
+        if (
+          revCardType1 == revCardType2 &&
+          revealedCards[0].id != revealedCards[1].id
+        ) {
+          matchCard(revealedCards[0]);
+          matchCard(revealedCards[1]);
           matchedCards.push(revealedCards);
           revealedCards = [];
         }
