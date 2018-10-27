@@ -60,6 +60,8 @@ startGame();
 const deckList = document.querySelectorAll('.card');
 const deck = document.querySelector('.deck');
 let revealedCards = [];
+let compCard1 = [];
+let compCard2 = [];
 let matchedCards = [];
 let movesCounter = 0;
 let moves = document.querySelector('.moves');
@@ -76,16 +78,14 @@ const hideCard = card => {
 };
 
 const matchCard = card => {
-  if (card.dataset.cardView === 'open') {
-    card.classList.add('match');
-  }
+  card.classList.add('match');
 };
 
 const movesTrack = card => {
-  if (!card.dataset.cardView === 'open') {
-    movesCounter++;
-    moves.innerText = movesCounter;
-  }
+  // if (!card.dataset.cardView === 'open') {
+  movesCounter++;
+  moves.innerText = movesCounter;
+  // }
 };
 
 const clearBoard = () => {
@@ -144,41 +144,46 @@ deck.addEventListener(
   function(e) {
     let clickedCard = e.target;
     if (!clickedCard.matches('[data-card-view]')) return;
-    displayCard(clickedCard);
-    console.log(`clicked: `, clickedCard);
-    if (!clickedCard.dataset.cardView === 'open') return;
+    if (
+      !clickedCard.classList.contains('open') ||
+      !clickedCard.classList.contains('match')
+    ) {
+      displayCard(clickedCard);
 
-    revealedCards.push(clickedCard);
-    console.log(`revealed: `, revealedCards);
-    movesTrack(clickedCard);
+      console.log(`clicked: `, clickedCard);
+      if (!clickedCard.dataset.cardView === 'open') return;
 
-    if (revealedCards.length == 2) {
-      let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
-      let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
-      if (revCardType1 == revCardType2) {
-        matchCard(revealedCards[0]);
-        matchCard(revealedCards[1]);
-        matchedCards.push(revealedCards);
-        revealedCards = [];
-      }
-      setTimeout(() => {
-        for (let card of revealedCards) {
-          hideCard(card);
+      revealedCards.push(clickedCard);
+      console.log(`revealed: `, revealedCards);
+      movesTrack(clickedCard);
+
+      if (revealedCards.length == 2) {
+        let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
+        let revCardType2 = revealedCards[1].firstElementChild.classList.item(1);
+        if (revCardType1 == revCardType2) {
+          matchCard(...revealedCards);
+          matchedCards.push(revealedCards);
+          revealedCards = [];
         }
-        revealedCards = [];
-      }, 850);
-    }
+        setTimeout(() => {
+          for (let card of revealedCards) {
+            hideCard(card);
+          }
+          revealedCards = [];
+        }, 850);
+      }
 
-    if (matchedCards.length == 8) {
-      winGame();
-    }
+      if (matchedCards.length == 8) {
+        winGame();
+      }
 
-    if (movesCounter >= 5 && movesCounter <= 10) {
-      stars.firstElementChild.style = 'display: none';
-    } else if (movesCounter >= 11) {
-      stars.lastElementChild.style = 'display: none';
-    } else {
-      return;
+      if (movesCounter >= 5 && movesCounter <= 10) {
+        stars.firstElementChild.style = 'display: none';
+      } else if (movesCounter >= 11) {
+        stars.lastElementChild.style = 'display: none';
+      } else {
+        return;
+      }
     }
   },
   false
