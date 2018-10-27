@@ -29,8 +29,9 @@ function shuffle(array) {
 }
 
 let cleaned = cardList => {
-  for (let card of cardList) {
+  for (let [key, card] of cardList.entries()) {
     card.setAttribute('class', 'card');
+    card.id = key;
     cardListArray.push(card);
   }
 };
@@ -75,12 +76,16 @@ const hideCard = card => {
 };
 
 const matchCard = card => {
-  card.classList.add('match');
+  if (card.dataset.cardView === 'open') {
+    card.classList.add('match');
+  }
 };
 
 const movesTrack = card => {
-  movesCounter++;
-  moves.innerText = movesCounter;
+  if (!card.dataset.cardView === 'open') {
+    movesCounter++;
+    moves.innerText = movesCounter;
+  }
 };
 
 const clearBoard = () => {
@@ -140,10 +145,11 @@ deck.addEventListener(
     let clickedCard = e.target;
     if (!clickedCard.matches('[data-card-view]')) return;
     displayCard(clickedCard);
-
+    console.log(`clicked: `, clickedCard);
     if (!clickedCard.dataset.cardView === 'open') return;
 
     revealedCards.push(clickedCard);
+    console.log(`revealed: `, revealedCards);
     movesTrack(clickedCard);
 
     if (revealedCards.length == 2) {
@@ -178,7 +184,7 @@ deck.addEventListener(
   false
 );
 // }
-
+// TODO: refactor with click on the document and match event to .restart class
 let restartButton = document.querySelector('.restart');
 restartButton.addEventListener('click', function(e) {
   restart();
