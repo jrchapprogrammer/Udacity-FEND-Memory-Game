@@ -82,10 +82,8 @@ const matchCard = card => {
 };
 
 const movesTrack = card => {
-  // if (!card.dataset.cardView === 'open') {
   movesCounter++;
   moves.innerText = movesCounter;
-  // }
 };
 
 const clearBoard = () => {
@@ -151,12 +149,7 @@ deck.addEventListener(
       !clickedCard.classList.contains('match')
     ) {
       displayCard(clickedCard);
-
-      console.log(`clicked: `, clickedCard);
-      // if (!clickedCard.dataset.cardView === 'open') return;
-
       revealedCards.push(clickedCard);
-      console.log(`revealed: `, revealedCards);
       movesTrack(clickedCard);
 
       if (revealedCards.length == 2) {
