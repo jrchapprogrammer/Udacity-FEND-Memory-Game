@@ -57,27 +57,30 @@ startGame();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const deckList = document.querySelectorAll('.card');
+const deck = document.querySelector('.deck');
 let revealedCards = [];
 let matchedCards = [];
 let movesCounter = 0;
 let moves = document.querySelector('.moves');
 moves.innerText = movesCounter;
 
-const movesTrack = card => {
-  movesCounter++;
-  moves.innerText = movesCounter;
-};
-
 const displayCard = card => {
   card.classList.add('show', 'open');
+  card.dataset.cardView = 'open';
 };
 
 const hideCard = card => {
   card.classList.remove('show', 'open');
+  card.dataset.cardView = 'hidden';
 };
 
 const matchCard = card => {
   card.classList.add('match');
+};
+
+const movesTrack = card => {
+  movesCounter++;
+  moves.innerText = movesCounter;
 };
 
 const clearBoard = () => {
@@ -127,21 +130,21 @@ const winGame = () => {
     restart();
   });
 };
-
 for (let item of deckList) {
-  item.addEventListener('click', function(e) {
-    displayCard(item);
-    revealedCards.push(item);
-    if (
-      item.hasAttribute('open') ||
-      item.hasAttribute('show') ||
-      item.hasAttribute('match')
-    ) {
-      return;
-      // } else if (item.hasAttribute('open') && item.hasAttribute('show')) {
-    } else {
-      movesTrack(item);
-    }
+  item.dataset.cardView = 'hidden';
+}
+
+deck.addEventListener(
+  'click',
+  function(e) {
+    let clickedCard = e.target;
+    if (!clickedCard.matches('[data-card-view]')) return;
+    displayCard(clickedCard);
+
+    if (!clickedCard.dataset.cardView === 'open') return;
+
+    revealedCards.push(clickedCard);
+    movesTrack(clickedCard);
 
     if (revealedCards.length == 2) {
       let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
@@ -171,8 +174,10 @@ for (let item of deckList) {
     } else {
       return;
     }
-  });
-}
+  },
+  false
+);
+// }
 
 let restartButton = document.querySelector('.restart');
 restartButton.addEventListener('click', function(e) {
