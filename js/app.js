@@ -176,9 +176,9 @@ deck.addEventListener(
         winGame();
       }
 
-      if (movesCounter >= 5 && movesCounter <= 10) {
+      if (movesCounter >= 35 && movesCounter <= 54) {
         stars.firstElementChild.style = 'display: none';
-      } else if (movesCounter >= 11) {
+      } else if (movesCounter >= 55) {
         stars.lastElementChild.style = 'display: none';
       } else {
         return;
