@@ -45,6 +45,7 @@ const cardLoader = deck => {
 };
 
 // Function: Initializes the game
+
 const startGame = () => {
   cleaned(cardList);
   shuffle(cardListArray);
@@ -52,9 +53,19 @@ const startGame = () => {
   document.querySelector('.deck').appendChild(deckLoader);
 };
 
+// Timer functionality
+
+const startTime = () => Date.now();
+const endTime = () => Date.now();
+const timeElapsed = (endTime - startTime) / 1000 / 60;
+
 // Calling start function...
 
 startGame();
+
+// Starting timer...
+
+startTime();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -142,7 +153,7 @@ const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
   starsCountDisplay();
-  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${elapsedTime} mins and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
@@ -150,6 +161,7 @@ const congrats = () => {
 // Function: calls congrats(), sets click handler on congrats button, restarts game
 
 const winGame = () => {
+  endTime();
   congrats();
   let congratsButton = document.querySelector('.congratsModal button');
   congratsButton.addEventListener('click', function(e) {
