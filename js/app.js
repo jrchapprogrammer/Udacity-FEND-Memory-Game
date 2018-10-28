@@ -28,6 +28,8 @@ function shuffle(array) {
   return array;
 }
 
+// Function: Strips card elements of all classes except for 'card', adds id by index, and pushes to cardListArray
+
 let cleaned = cardList => {
   for (let [key, card] of cardList.entries()) {
     card.setAttribute('class', 'card');
@@ -36,15 +38,21 @@ let cleaned = cardList => {
   }
 };
 
+// Function: Loads cards into document fragment
+
 const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
+
+// Function: Initializes the game
 const startGame = () => {
   cleaned(cardList);
   shuffle(cardListArray);
   cardLoader(cardListArray);
   document.querySelector('.deck').appendChild(deckLoader);
 };
+
+// Calling start function...
 
 startGame();
 /*
@@ -57,34 +65,43 @@ startGame();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-const deckList = document.querySelectorAll('.card');
-const deck = document.querySelector('.deck');
-let revealedCards = [];
-let compCard1 = [];
-let compCard2 = [];
-let matchedCards = [];
-let movesCounter = 0;
-let moves = document.querySelector('.moves');
-moves.innerText = movesCounter;
+
+const deckList = document.querySelectorAll('.card'); // card items
+const deck = document.querySelector('.deck'); // card deck container
+let revealedCards = []; // Hold 2 clicked cards for comparison
+let matchedCards = []; // Holds matched cards
+let movesCounter = 0; // Tracks moves made
+let moves = document.querySelector('.moves'); // moves display on the page
+moves.innerText = movesCounter; // Sets tracked moves to 'Moves' on the page
+
+// Function: opens card
 
 const displayCard = card => {
   card.classList.add('show', 'open');
   card.dataset.cardView = 'open';
 };
 
+// Function: closes card
+
 const hideCard = card => {
   card.classList.remove('show', 'open');
   card.dataset.cardView = 'hidden';
 };
 
+// Function: adds match class
+
 const matchCard = card => {
   card.classList.add('match');
 };
+
+// Function: tracks moves
 
 const movesTrack = card => {
   movesCounter++;
   moves.innerText = movesCounter;
 };
+
+// Function: resets board values
 
 const clearBoard = () => {
   cardListArray = [];
@@ -96,6 +113,8 @@ const clearBoard = () => {
   stars.lastElementChild.removeAttribute('style');
 };
 
+// Function: restart game
+
 const restart = () => {
   clearBoard();
   startGame();
@@ -106,6 +125,8 @@ let page = document.querySelector('body');
 let stars = document.querySelector('.stars');
 let starsCount = 0;
 
+// Function: updates star ranking count
+
 const starsCountDisplay = () => {
   if (movesCounter >= 55) {
     starsCount = 1;
@@ -115,6 +136,7 @@ const starsCountDisplay = () => {
     starsCount = stars.childElementCount;
   }
 };
+// Function: displays win condition page
 
 const congrats = () => {
   let congratsContainer = document.createElement('DIV');
@@ -124,6 +146,8 @@ const congrats = () => {
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
+
+// Function: calls congrats(), sets click handler on congrats button, restarts game
 
 const winGame = () => {
   congrats();
@@ -135,22 +159,31 @@ const winGame = () => {
     restart();
   });
 };
+
+// Set data attribute to each card
+
 for (let item of deckList) {
   item.dataset.cardView = 'hidden';
 }
+
+// Sets click listener on deck
 
 deck.addEventListener(
   'click',
   function(e) {
     let clickedCard = e.target;
     if (!clickedCard.matches('[data-card-view]')) return;
+
+    // Condition:  if card is not open, proceed
     if (
       !clickedCard.classList.contains('open') ||
       !clickedCard.classList.contains('match')
     ) {
-      displayCard(clickedCard);
+      displayCard(clickedCard); // open card and register move
       revealedCards.push(clickedCard);
       movesTrack(clickedCard);
+
+      // Condition:  if opened cards match...
 
       if (revealedCards.length == 2) {
         let revCardType1 = revealedCards[0].firstElementChild.classList.item(1);
@@ -166,15 +199,18 @@ deck.addEventListener(
         }
         setTimeout(() => {
           for (let card of revealedCards) {
-            hideCard(card);
+            hideCard(card); // close cards
           }
-          revealedCards = [];
+          revealedCards = []; // reset opened card array
         }, 850);
       }
 
+      // Condition:  win condition - if all cards are matched...
       if (matchedCards.length == 8) {
-        winGame();
+        winGame(); // call endgame function
       }
+
+      // Condition: updates star rank
 
       if (movesCounter >= 35 && movesCounter <= 54) {
         stars.firstElementChild.style = 'visibility: hidden';
@@ -187,8 +223,9 @@ deck.addEventListener(
   },
   false
 );
-// }
-// TODO: refactor with click on the document and match event to .restart class
+
+// Add click functionality for restart button
+
 let restartButton = document.querySelector('.restart');
 restartButton.addEventListener('click', function(e) {
   restart();
