@@ -153,12 +153,13 @@ const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
   starsCountDisplay();
-  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${elapsedTime} mins and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${timeElapsed} mins and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
 
 // Function: click listener for button
+
 const playAgain = () => {
   let congratsButton = document.querySelector('.congratsModal button');
   congratsButton.addEventListener('click', function(e) {
@@ -199,7 +200,7 @@ deck.addEventListener(
       displayCard(clickedCard); // open card and register move
       revealedCards.push(clickedCard);
       movesTrack(clickedCard);
-
+      console.log(matchedCards.length);
       // Condition:  if opened cards match...
 
       if (revealedCards.length == 2) {
