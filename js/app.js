@@ -158,11 +158,8 @@ const congrats = () => {
   page.appendChild(congratsContainer);
 };
 
-// Function: calls congrats(), sets click handler on congrats button, restarts game
-
-const winGame = () => {
-  endTime();
-  congrats();
+// Function: click listener for button
+const playAgain = () => {
   let congratsButton = document.querySelector('.congratsModal button');
   congratsButton.addEventListener('click', function(e) {
     document.querySelector('.congrats').classList.toggle('hide');
@@ -170,6 +167,14 @@ const winGame = () => {
     board.classList.toggle('hide');
     restart();
   });
+};
+
+// Function: calls congrats(), sets click handler on congrats button, restarts game
+
+const winGame = () => {
+  endTime();
+  congrats();
+  playAgain();
 };
 
 // Set data attribute to each card
@@ -218,6 +223,7 @@ deck.addEventListener(
       }
 
       // Condition:  win condition - if all cards are matched...
+
       if (matchedCards.length == 8) {
         winGame(); // call endgame function
       }
