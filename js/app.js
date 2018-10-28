@@ -92,8 +92,8 @@ const clearBoard = () => {
   movesCounter = 0;
   moves.innerText = movesCounter;
   matchedCards = [];
-  stars.firstElementChild.style = 'display: inline-block';
-  stars.lastElementChild.style = 'display: inline-block';
+  stars.firstElementChild.removeAttribute('style');
+  stars.lastElementChild.removeAttribute('style');
 };
 
 const restart = () => {
@@ -107,9 +107,9 @@ let stars = document.querySelector('.stars');
 let starsCount = 0;
 
 const starsCountDisplay = () => {
-  if (movesCounter >= 11) {
+  if (movesCounter >= 55) {
     starsCount = 1;
-  } else if (movesCounter <= 5 && movesCounter >= 10) {
+  } else if (movesCounter >= 35 && movesCounter <= 54) {
     starsCount = 2;
   } else {
     starsCount = stars.childElementCount;
@@ -177,9 +177,9 @@ deck.addEventListener(
       }
 
       if (movesCounter >= 35 && movesCounter <= 54) {
-        stars.firstElementChild.style = 'display: none';
+        stars.firstElementChild.style = 'visibility: hidden';
       } else if (movesCounter >= 55) {
-        stars.lastElementChild.style = 'display: none';
+        stars.lastElementChild.style = 'visibility: hidden';
       } else {
         return;
       }
