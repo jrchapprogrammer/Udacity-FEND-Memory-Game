@@ -51,21 +51,58 @@ const startGame = () => {
   shuffle(cardListArray);
   cardLoader(cardListArray);
   document.querySelector('.deck').appendChild(deckLoader);
+  // Starting timer...
+  startClock();
 };
 
 // Timer functionality
+let startTime;
+let endTime;
+let hour = 0;
+let minute = 0;
+let second = 0;
+let hr = hour < 10 ? `0${hour}` : hour;
+let min = minute < 10 ? `0${minute}` : minute;
+let sec = second < 10 ? `0${second}` : second;
+let timeElapsed = `${hr}:${min}:${sec}`;
 
-const startTime = () => Date.now();
-const endTime = () => Date.now();
-const timeElapsed = (endTime - startTime) / 1000 / 60;
+const startClock = () => {
+  if (second === 60) {
+    second = 0;
+    minute++;
+  }
+  if (minute === 60) {
+    minute = 0;
+    hour++;
+  }
+  let elapsing = document.querySelector('#elapsing');
+  elapsing.innerHTML = timeElapsed;
+  second++;
+  startTime = setTimeout(startClock, 1000);
+};
+
+const timeReset = () => {
+  second = 0;
+  minute = 0;
+  hour = 0;
+  sec = `0${second}`;
+  min = `0${minute}`;
+  hr = `0${hour}`;
+};
+
+const endClock = () => {
+  endTime = timeElapsed;
+  let elapsing = document.querySelector('#elapsing');
+  endTime = timeElapsed;
+  elapsing.innerHTML = timeElapsed;
+  timeReset();
+  clearTimeout(startTime);
+};
 
 // Calling start function...
 
 startGame();
 
-// Starting timer...
-
-startTime();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -153,7 +190,7 @@ const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
   starsCountDisplay();
-  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${timeElapsed} mins and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${endTime} and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
@@ -173,7 +210,6 @@ const playAgain = () => {
 // Function: calls congrats(), sets click handler on congrats button, restarts game
 
 const winGame = () => {
-  endTime();
   congrats();
   playAgain();
 };
@@ -227,6 +263,7 @@ deck.addEventListener(
 
       if (matchedCards.length == 8) {
         winGame(); // call endgame function
+        endClock();
       }
 
       // Condition: updates star rank
