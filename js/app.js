@@ -44,17 +44,6 @@ const cardLoader = deck => {
   deck.forEach(item => deckLoader.appendChild(item));
 };
 
-// Function: Initializes the game
-
-const startGame = () => {
-  cleaned(cardList);
-  shuffle(cardListArray);
-  cardLoader(cardListArray);
-  document.querySelector('.deck').appendChild(deckLoader);
-  // Starting timer...
-  startClock();
-};
-
 // Timer functionality
 let startTime;
 let endTime;
@@ -97,6 +86,17 @@ const endClock = () => {
   elapsing.innerHTML = timeElapsed;
   timeReset();
   clearTimeout(startTime);
+};
+
+// Function: Initializes the game
+
+const startGame = () => {
+  cleaned(cardList);
+  shuffle(cardListArray);
+  cardLoader(cardListArray);
+  document.querySelector('.deck').appendChild(deckLoader);
+  // Starting timer...
+  startClock();
 };
 
 // Calling start function...
