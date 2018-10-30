@@ -50,24 +50,41 @@ let endTime;
 let hour = 0;
 let minute = 0;
 let second = 0;
-let hr = hour < 10 ? `0${hour}` : hour;
-let min = minute < 10 ? `0${minute}` : minute;
-let sec = second < 10 ? `0${second}` : second;
-let timeElapsed = `${hr}:${min}:${sec}`;
+let hr;
+let min;
+let sec;
+let timeElapsed;
+let elapsing = document.querySelector('#elapsing');
 
-const startClock = () => {
+function clockTimer(continueInterval = true) {
+  addSecond();
+  if (continueInterval) {
+    startTime = setTimeout(clockTimer, 1000);
+  }
+}
+
+function addSecond() {
   if (second === 60) {
     second = 0;
     minute++;
   }
+
+  min = minute < 10 ? `0${minute}:` : `${minute}:`;
+
   if (minute === 60) {
     minute = 0;
     hour++;
   }
-  let elapsing = document.querySelector('#elapsing');
-  elapsing.innerHTML = timeElapsed;
+  hr = hour < 10 ? `0${hour}:` : `${hour}:`;
+  sec = second < 10 ? `0${second}` : second;
+
+  elapsing.innerHTML = `${hr}${min}${sec}`;
+  timeElapsed = `${hr}${min}${sec}`;
   second++;
-  startTime = setTimeout(startClock, 1000);
+}
+
+const startClock = () => {
+  clockTimer();
 };
 
 const timeReset = () => {
@@ -80,10 +97,8 @@ const timeReset = () => {
 };
 
 const endClock = () => {
-  endTime = timeElapsed;
   let elapsing = document.querySelector('#elapsing');
-  endTime = timeElapsed;
-  elapsing.innerHTML = timeElapsed;
+  elapsing.innerHTML = `${hr}${min}${sec}`;
   timeReset();
   clearTimeout(startTime);
 };
@@ -95,16 +110,18 @@ const startGame = () => {
   shuffle(cardListArray);
   cardLoader(cardListArray);
   document.querySelector('.deck').appendChild(deckLoader);
-  // Starting timer...
-  startClock();
 };
 
 // Calling start function...
 
 startGame();
 
+// Starting timer...
+window.addEventListener('load', function(e) {
+  startClock();
+});
 /*
- * set up the event listener for a card. If a card is clicked:
+* set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
@@ -166,6 +183,7 @@ const clearBoard = () => {
 const restart = () => {
   clearBoard();
   startGame();
+  startClock();
 };
 
 let board = document.querySelector('.container');
@@ -190,7 +208,7 @@ const congrats = () => {
   let congratsContainer = document.createElement('DIV');
   congratsContainer.classList.toggle('congrats');
   starsCountDisplay();
-  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${endTime} and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
+  congratsContainer.innerHTML = `<div class="congratsModal"><h1>Congratulations, you won!!</h1><p>You made ${movesCounter} moves and finished with a time of ${timeElapsed} and with a star rating of ${starsCount}.</p><br><button id="congratsButton">Play Again?</button></div>`;
   board.classList.toggle('hide');
   page.appendChild(congratsContainer);
 };
