@@ -1,20 +1,28 @@
 # Memory Game Project
 
+By `John Chappelle`
+
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+- [Instructions](#instructions)
+- [Gameplay](#gameplay)
+- [Acknowledgements](#acknowledgements)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To play, [click here](https://jrchapprogrammer.github.io/Udacity-FEND-Memory-Game/). The game will start upon loading.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Gameplay
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Click on tiles to reveal them. If the two corresponding tiles match, they will change color and stay open. If not, they will both close, allowing you to make another selection. The goal is to match all tiles. As you play, a timer will keep track of how long you've been playing. A rating system (stars) will track the number of moves you make. If you take too many moves, you lose a star. At any time, you can reset the game with the **restart** icon on the top right side. When all tiles are matched, your rating and time will be displayed. Click the **'Play Again'** button if you'd like to play again.
 
-## Contributing
+## Acknowledgements
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This game was built with the Memory Game Project starter files, provided by Udacity.
+The HTML and CSS were largely provided, but the Javascript is my own, and in some areas inspired by ideas in the field.
+I would like to acknowledge my sources:
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+- MDN Web Documentation
+- W3C Web Documentation
+- [How to Make a Javascript Stopwatch](https://www.ostraining.com/blog/coding/stopwatch/)
+- [Memory Game with Mike Wales](https://youtu.be/x47oLiTpIVk)
